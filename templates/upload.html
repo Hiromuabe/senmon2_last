@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Upload File</title>
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #F4F4F4;
+            color: #333;
+        }
+
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+        }
+
+        header {
+            background: #50B794;
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            padding: 10px;
+        }
+
+        .btn {
+            display: inline-block;
+            background: #50B794;
+            color: #fff;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 20px;
+            margin-top: 20px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        form label, form input {
+            font-size: 20px;
+        }
+
+
+        .btn:hover {
+            background: #4B9C8E;
+        }
+
+        p {
+            font-size: 20px;
+            font-family: 'Georgia', serif;
+            color: #555;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        label {
+            font-size: 24px;
+            display: block;
+            margin: 20px 0;
+        }
+
+        input[type="text"], input[type="file"] {
+            display: block;
+            margin: 10px 0;
+            padding: 15px;
+            font-size: 18px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .file-input-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .file-input {
+            border: 1px solid #ccc;
+            display: inline-block;
+            padding: 6px 12px;
+            cursor: pointer;
+            width: 100%;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Upload File</h1>
+    </header>
+
+    <div class="container">
+        <form action="/upload/" method="post" enctype="multipart/form-data">
+            <label for="name">画像の名前を入力してください。</label>
+            <input type="text" id="name" name="name" required placeholder="Enter name here..." autocomplete="off">
+            <label for="file">画像を選択してください。</label>
+            <div class="file-input-wrapper">
+              <div class="file-input">
+                <input type="file" id="file" name="file">
+              </div>
+            </div>
+            <input type="submit" value="Upload" class="btn">
+        </form>
+
+        {%if info %}
+            <p style="text-align: center;">{{ info }}</p>
+        {% endif %}
+
+        <form action="/" method="get">
+            <button type="submit" class="btn">Back</button>
+        </form>
+    </div>
+</body>
+</html>
+

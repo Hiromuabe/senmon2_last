@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Search Form</title>
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #F4F4F4;
+        }
+
+        .main-container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .action-button {
+            display: inline-block;
+            background: #50B794;
+            color: #fff;
+            padding: 15px 40px;  /* padding increased to avoid cutting off the text */
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 20px;
+            margin: 10px;
+            width: auto;  /* set width to auto to avoid cutting off the text */
+            text-align: center;  /* align the text to the center of the button */
+        }
+
+        .action-button:hover {
+            background: #4B9C8E;
+        }
+
+        .search-bar {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+            }
+
+        .search-bar form {
+        display: flex;
+        justify-content: center;
+        width: 60%;
+        }
+
+        .search-bar input[type="text"] {
+        flex-grow: 1;
+        padding: 15px;
+        font-size: 18px;
+        }
+
+        .search-bar input[type="submit"] {
+        margin-left: 10px;
+        padding: 15px 40px;
+        }
+
+        .search-form {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 60%;
+            margin: 0 auto;
+        }
+
+        .search-form input[type="text"] {
+            flex-grow: 1;
+            padding: 15px;
+            font-size: 18px;
+            margin-right: 10px;
+        }
+
+        .search-form input[type="submit"] {
+            padding: 15px 40px;
+            font-size: 18px;
+        }
+
+
+        .insert-button-container {
+            display: flex;
+            justify-content: center;
+        }
+
+        figure {
+            margin: 10px;
+            text-align: center;
+        }
+
+        figcaption {
+            font-size: 24px;
+            font-family: 'Georgia', serif;
+        }
+
+        p {
+            font-size: 28px;
+            font-family: 'Georgia', serif;
+            text-align: center;
+            margin: 30px 0;
+        }
+
+        img.plot {
+            display: block;
+            margin: 0 auto;
+            width: 80%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <div class="search-bar">
+            <form action="/search/" method="post">
+                <input type="text" name="query" required placeholder="Search..." autocomplete="off">
+                <input type="submit" value="Search" class="action-button">
+            </form>
+        </div>
+
+        <!-- Insert ボタンを中央に配置 -->
+        <div class="insert-button-container">
+            <form action="/upload/" method="get">
+                <button type="submit" class="action-button">Insert</button>
+            </form>
+        </div>
+
+        <!-- 表示する画像がある場合 -->
+        {% if query %}
+            <p>{{ query }}に該当する画像はこちら</p>
+        {% endif %}
+        {% if images %}
+            <div style="display: flex; flex-wrap: wrap; justify-content: center;">
+            {% for image in images %}
+                <!-- FastAPIのpublicディレクトリに画像が存在すると仮定 -->
+                <figure>
+                    <img src="{{ '/static/data/' + image }}.jpg" alt="image" style="width: 200px; height: 200px; object-fit: cover;">
+                    <figcaption>{{ image }}</figcaption>
+                </figure>
+            {% endfor %}
+            </div>
+            <p>入力テキストと画像の可視化</p>
+            <img src="/static/plot.png" class="plot" alt="image">
+        {% endif %}
+    </div>
+</body>
+</html>
